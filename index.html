@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🎁 Mystery Box Surprise!</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        @keyframes shake {
+            0% { transform: translateX(0); }
+            25% { transform: translateX(-5px); }
+            50% { transform: translateX(5px); }
+            75% { transform: translateX(-5px); }
+            100% { transform: translateX(0); }
+        }
+        .shake { animation: shake 0.5s infinite; }
+    </style>
+</head>
+<body class="flex flex-col justify-center items-center h-screen bg-gradient-to-r from-yellow-400 to-orange-500 text-white text-center">
+    <h1 class="text-4xl font-bold">🎁 Congratulations! You've Won a Mystery Box! 🎁</h1>
+    <p class="mt-4 text-lg">Tap the box to reveal your surprise!</p>
+    
+    <div id="box" class="mt-6 p-10 shake cursor-pointer">
+        <span class="text-7xl">🎁</span>
+    </div>
+    
+    <p id="message" class="mt-4 text-lg text-black font-bold"></p>
+
+    <script>
+        let clickCount = 0;
+        let messages = [
+            "🔓 Unlocking... (Click One more time)", 
+            "⏳ Almost there... (Click One more time)", 
+            "🎉 Just one more step! (Click One more time)", 
+            "😮 Oops! Box is locked! Try Again? (Click Again)"
+        ];
+        let box = document.getElementById("box");
+        let message = document.getElementById("message");
+
+        box.addEventListener("click", () => {
+            if (clickCount < messages.length - 1) {
+                message.innerText = messages[clickCount];
+                clickCount++;
+            } else {
+                document.body.innerHTML = `
+                    <div class='flex flex-col justify-center items-center h-screen bg-red-500 text-white text-center p-10'>
+                        <img src="2.png" alt="Gift" class="w-1/2 mb-4 rounded-lg ">
+                        <h1 class='text-6xl font-bold'>You Got Pranked!</h1>
+                        <p class='text-xl mt-4'>Hahaha! You really thought there was a gift? Nope! Just a prank!</p>
+                    </div>`;
+            }
+        });
+    </script>
+</body>
+</html>
